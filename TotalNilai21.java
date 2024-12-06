@@ -3,40 +3,41 @@ import java.util.Scanner;
 public class TotalNilai21 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
+        
         // Meminta input jumlah angka yang ingin dihitung
         System.out.print("Masukkan jumlah angka yang ingin dihitung (N): ");
         int N = scanner.nextInt();
-
+        
         // Array untuk menyimpan angka-angka yang dimasukkan pengguna
         int[] angka = new int[N];
-
+        
         // Memasukkan angka satu per satu
         for (int i = N; i >= 1; i--) {
             System.out.print("Masukkan angka ke-" + i + ": ");
             angka[i - 1] = scanner.nextInt();
         }
-
-        // Menghitung total dengan kombinasi iterasi dan rekursi
-        int total = hitungTotalGabungan(angka);
-        System.out.println("Total dari " + N + " angka yang dimasukkan adalah: " + total);
-
+        
+        // Menghitung total menggunakan iterasi
+        int totalIteratif = hitungTotalIteratif(angka);
+        System.out.println("Total dari " + N + " angka (menggunakan iterasi) adalah: " + totalIteratif);
+        
+        // Menghitung total menggunakan rekursi
+        int totalRekursif = hitungTotalRekursif(angka, 0);
+        System.out.println("Total dari " + N + " angka (menggunakan rekursi) adalah: " + totalRekursif);
+        
         scanner.close();
     }
-
-    // Fungsi gabungan iterasi dan rekursi untuk menghitung total
-    public static int hitungTotalGabungan(int[] angka) {
-        // Iterasi untuk menghitung nilai dasar
-        int totalSementara = 0;
-        for (int i = 0; i < angka.length / 2; i++) {
-            totalSementara += angka[i];
+    
+    // Fungsi iteratif untuk menghitung total
+    public static int hitungTotalIteratif(int[] angka) {
+        int total = 0;
+        for (int num : angka) {
+            total += num;
         }
-
-        // Rekursi untuk menambahkan sisa nilai
-        return totalSementara + hitungTotalRekursif(angka, angka.length / 2);
+        return total;
     }
-
-    // Fungsi rekursif untuk menambahkan elemen array
+    
+    // Fungsi rekursif untuk menghitung total
     public static int hitungTotalRekursif(int[] angka, int index) {
         if (index == angka.length) {
             return 0; // Basis rekursi: jika indeks sudah sampai akhir array
